@@ -1,0 +1,10 @@
+<nav>
+  <ul>
+    <li routerLinkActive="active">
+      <a routerLink="/producto">Productos</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/carrito">Carrito</a>
+    </li>
+  </ul>
+</nav>
