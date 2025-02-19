@@ -1,0 +1,64 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FrutasService {
+  private frutas = [
+    { id: 1, nombre: 'Manzana', precio: 1.5, favorita: false },
+    { id: 2, nombre: 'Plátano', precio: 1.2, favorita: false },
+    { id: 3, nombre: 'Naranja', precio: 1.8, favorita: false },
+    { id: 4, nombre: 'Melón', precio: 2, favorita: false },
+    { id: 5, nombre: 'Maracuyá', precio: 4, favorita: false },
+  ];
+
+  getFrutas() {
+    return [...this.frutas];
+  }
+
+  getFrutaById(id: number) {
+    return this.frutas.find((fruta) => fruta.id === id);
+  }
+
+  toggleFavorita(id: number) {
+    const fruta = this.frutas.find((f) => f.id === id);
+    if (fruta) {
+      fruta.favorita = !fruta.favorita;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { FrutasService } from '../frutas.service';
+
+@Component({
+  selector: 'app-productos',
+  templateUrl: './productos.component.html',
+  styleUrls: ['./productos.component.css'],
+})
+export class ProductosComponent implements OnInit {
+  frutas = [];
+  mostrarFavoritas = false;
+
+  constructor(private frutasService: FrutasService) {}
+
+  ngOnInit() {
+    this.frutas = this.frutasService.getFrutas();
+  }
+
+  toggleFavoritas() {
+    this.mostrarFavoritas = !this.mostrarFavoritas;
+    this.frutas = this.mostrarFavoritas
+      ? this.frutas.filter((fruta) => fruta.favorita)
+      : this.frutasService.getFrutas();
+  }
+}
